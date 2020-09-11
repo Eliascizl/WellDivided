@@ -66,6 +66,7 @@ namespace WellDividedCore
 		}
 
 		private int groupCount;
+		internal List<Attribute> BalancedAttributes { get; private set; } = new List<Attribute>();
 
 		public void UpdateSettings()
 		{
