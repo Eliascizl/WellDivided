@@ -11,7 +11,10 @@ namespace WellDividedTests
 		public void TestLoadDataCSV()
 		{
 			// default folder is WellDivided/WellDividedTests/bin/Debug/netcoreapp3.1
-			
+			var divider = new Divider();
+
+			divider.LoadDataFromText("../../../testdata/deti.txt");
+
 		}
 	}
 }
