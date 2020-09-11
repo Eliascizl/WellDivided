@@ -6,5 +6,6 @@ namespace WellDividedCore
 {
 	public class Element
 	{
+		public Dictionary<Attribute, Attribute.AttributeInstance> Attributes { get; } = new Dictionary<Attribute, Attribute.AttributeInstance>();
 	}
 }
