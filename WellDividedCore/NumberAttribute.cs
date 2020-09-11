@@ -16,11 +16,11 @@ namespace WellDividedCore
 
 		public class NumberAttributeInstance : AttributeInstance
 		{
-			public int Value { get; }
+			public float Value { get; }
 
 			public NumberAttributeInstance(string value)
 			{
-				Value = int.Parse(value);
+				Value = float.Parse(value);
 			}
 
 		}

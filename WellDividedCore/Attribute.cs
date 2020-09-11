@@ -21,6 +21,8 @@ namespace WellDividedCore
 			
 		}
 
+		public abstract float Evaluate(List<Group> groups);
+
 		public abstract AttributeInstance GetInstance(string value);
 
 		/// <summary>
