@@ -12,9 +12,9 @@ namespace WellDividedCore
 	public abstract class Attribute
 	{
 		public string Name { get; set; }
-		public bool ToBalance { get; private set; }
+		public bool ToBalance { get; internal set; }
 
-		public int Importance { get; private set; }
+		public int Importance { get; internal set; }
 
 		protected Attribute()
 		{
