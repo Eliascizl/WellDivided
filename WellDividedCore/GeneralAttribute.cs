@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using WellDividedCore.Utility;
 
 namespace WellDividedCore
 {
@@ -10,7 +11,31 @@ namespace WellDividedCore
 	{
 		public GeneralAttribute() : base() { }
 
-		public override float Evaluate(List<Group> groups)
+		private Dictionary<string, float> expectedValues;
+
+		internal override void SetExpectations(List<Element> elements, int groupCount)
+		{
+			expectedValues = new Dictionary<string, float>();
+			for (int i = 0; i < elements.Count; i++)
+			{
+				var value = ((GeneralAttributeInstance)elements[i].Attributes[this]).Value;
+				if (expectedValues.ContainsKey(value))
+				{
+					expectedValues[value] += 1f;
+				}
+				else
+				{
+					expectedValues[value] = 1f;
+				}
+			}
+
+			foreach(var key in expectedValues.Keys)
+			{
+				expectedValues[key] /= groupCount;
+			}
+		}
+
+		internal override float Evaluate(List<Group> groups)
 		{
 			Dictionary<string, int>[] instanceCounts = new Dictionary<string, int>[groups.Count];
 			for (int i = 0; i < groups.Count; i++)
@@ -31,15 +56,9 @@ namespace WellDividedCore
 			}
 
 			Dictionary<string, float> evaluatedInstances = new Dictionary<string, float>();
-			for (int i = 0; i < instanceCounts.Length; i++)
+			foreach (var key in expectedValues.Keys)
 			{
-				foreach(var key in instanceCounts[i].Keys)
-				{
-					if(!evaluatedInstances.ContainsKey(key))
-					{
-						evaluatedInstances[key] = EvaluateInstance(key, instanceCounts);
-					}
-				}
+				evaluatedInstances[key] = EvaluateInstance(key, instanceCounts);
 			}
 
 			float totalScore = 0;
@@ -60,12 +79,28 @@ namespace WellDividedCore
 		/// <returns>The balance score for the given key (instance). In the range of 0 to 1.</returns>
 		private float EvaluateInstance(string instanceValue, Dictionary<string, int>[] instanceCounts)
 		{
+			float[] values = new float[instanceCounts.Length];
+			for (int i = 0; i < instanceCounts.Length; i++)
+			{
+				if(instanceCounts[i].TryGetValue(instanceValue, out int value))
+				{
+					values[i] = value;
+				}
+				else
+				{
+					values[i] = 0f;
+				}	
+			}
 
-			return 0f;
+			var expectedValue = expectedValues[instanceValue];
+			var deviation = values.StandardDeviation(expectedValue);
+
+			// Expected values exist only for instances present, so they are always > 0
+			return Math.Min(0f, 1f - (deviation / expectedValue));
 		}
 
 		// TODO: move to a generic factory
-		public override AttributeInstance GetInstance(string value)
+		internal override AttributeInstance GetInstance(string value)
 		{
 			return new GeneralAttributeInstance(value);
 		}

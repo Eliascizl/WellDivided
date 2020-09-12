@@ -21,9 +21,11 @@ namespace WellDividedCore
 			
 		}
 
-		public abstract float Evaluate(List<Group> groups);
+		internal abstract void SetExpectations(List<Element> elements, int groupCount);
 
-		public abstract AttributeInstance GetInstance(string value);
+		internal abstract float Evaluate(List<Group> groups);
+
+		internal abstract AttributeInstance GetInstance(string value);
 
 		/// <summary>
 		/// Each element shoud have instances of all their attributes. This is the base class for such instances.
