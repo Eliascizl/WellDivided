@@ -12,13 +12,17 @@ namespace WellDividedCore
 	public abstract class Attribute
 	{
 		public string Name { get; set; }
-		public bool ToBalance { get; internal set; }
 
 		public int Importance { get; internal set; }
 
 		protected Attribute()
 		{
 			
+		}
+
+		public override string ToString()
+		{
+			return Name;
 		}
 
 		internal abstract void SetExpectations(List<Element> elements, int groupCount);
