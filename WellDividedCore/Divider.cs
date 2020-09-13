@@ -12,8 +12,8 @@ namespace WellDividedCore
 	/// </summary>
 	public class Divider
 	{
-		private List<Element> elements = new List<Element>();
-		private List<Attribute> attributes = new List<Attribute>();
+		private List<Element> elements;
+		public List<Attribute> Attributes { get; private set; }
 
 		private List<Attribute.AttributeFactory> possibleAttributes = new List<Attribute.AttributeFactory>() { new Attribute.AttributeFactoryConcrete<GeneralAttribute>(""), new Attribute.AttributeFactoryConcrete<NumberAttribute>("num") };
 
@@ -24,60 +24,92 @@ namespace WellDividedCore
 		/// </summary>
 		/// <param name="path">System path to the file</param>
 		/// <exception cref="IOException">Thrown when there is a problem with loading.</exception>
+		/// <exception cref="FormatException">Thrown when there is an error with parsing the text.</exception>
 		public void LoadDataFromText(string path, char separator = '\t')
 		{
-			StreamReader reader = new StreamReader(path);
+			elements = new List<Element>();
+			Attributes = new List<Attribute>();
 
-			var names = reader.ReadLine().Split(separator);
-			var types = reader.ReadLine().Split(separator);
-			for (int i = 0; i < types.Length; i++)
+			StreamReader reader = null;
+			try
 			{
-				if(names[i] == "")
+				reader = new StreamReader(path);
+
+				var names = reader.ReadLine().Split(separator);
+				var types = reader.ReadLine().Split(separator);
+				for (int i = 0; i < types.Length; i++)
 				{
-					continue;
+					if (names[i] == "")
+					{
+						continue;
+					}
+
+					Attribute attribute = null;
+					foreach (var possibleAttribute in possibleAttributes)
+					{
+						attribute = possibleAttribute.GetAttribute(types[i]);
+						if (attribute != null)
+							break;
+					}
+					
+					if (attribute == null)
+					{
+						throw new IOException("The second row of the file contains incorrect data.");
+					}
+
+					attribute.Name = names[i];
+					Attributes.Add(attribute);
 				}
 
-				Attribute attribute = null;
-				var enumerator = possibleAttributes.GetEnumerator();
-				while (attribute == null)
+				string line;
+				while ((line = reader.ReadLine()) != null)
 				{
-					enumerator.MoveNext();
-					attribute = enumerator.Current.GetAttribute(types[i]);
+					Element element = new Element();
+
+					var data = line.Split(separator);
+					for (int i = 0; i < Attributes.Count; i++)
+					{
+						element.Attributes.Add(Attributes[i], Attributes[i].GetInstance(data[i]));
+					}
+
+					elements.Add(element);
 				}
-				attribute.Name = names[i];
-				attributes.Add(attribute);
 			}
-
-			string line;
-			while((line = reader.ReadLine()) != null)
+			finally
 			{
-				Element element = new Element();
-
-				var data = line.Split(separator);
-				for (int i = 0; i < attributes.Count; i++)
-				{
-					element.Attributes.Add(attributes[i], attributes[i].GetInstance(data[i]));
-				}
-
-				elements.Add(element);
+				if (reader != null)
+					reader.Close();
 			}
-
-			reader.Close();
 		}
 
 		private int groupCount;
+
+		internal bool ElementCountsBalanced { get; private set; }
 		internal List<Attribute> BalancedAttributes { get; private set; } = new List<Attribute>();
 
-		public void UpdateSettings()
+		/// <summary>
+		/// Sets the new settings for the balancing algorithm - all the attributes that should be balanced, whether to balance the counts of elements in groups etc.
+		/// </summary>
+		public void UpdateSettings(int groupCount, bool elementsCountsBalanced, List<Attribute> balancedAttributes, List<int> importanceValues, List<EvaluateBy> evaluateBies)
 		{
-
+			this.groupCount = groupCount;
+			ElementCountsBalanced = elementsCountsBalanced;
+			BalancedAttributes = balancedAttributes;
+			for (int i = 0; i < BalancedAttributes.Count; i++)
+			{
+				BalancedAttributes[i].Importance = importanceValues[i];
+				if(BalancedAttributes[i] is NumberAttribute)
+				{
+					((NumberAttribute)balancedAttributes[i]).EvaluateBy = evaluateBies[i];
+				}
+			}
 		}
 
-		private Solution finalSolution;
+		public Solution FinalSolution { get; private set; }
 
 		public void Divide()
 		{
-
+			System.Threading.Thread.Sleep(1000);
 		}
 
 		/// <summary>
@@ -88,33 +120,41 @@ namespace WellDividedCore
 		/// <exception cref="IOException">Thrown when there is a problem with loading.</exception>
 		public void SaveDataToText(string path, char separator = '\t')
 		{
-			StreamWriter writer = new StreamWriter(path);
+			StreamWriter writer = null;
 
-			StringBuilder builder = new StringBuilder();
-			builder.Append("Group ID");
-			for (int i = 0; i < attributes.Count; i++)
+			try
 			{
-				builder.Append(separator);
-				builder.Append(attributes[i].Name);
-			}
-			writer.WriteLine(builder.ToString());
+				writer = new StreamWriter(path);
 
-			for (int i = 0; i < finalSolution.Groups.Count; i++)
-			{
-				for (int j = 0; j < finalSolution.Groups[i].Elements.Count; j++)
+				StringBuilder builder = new StringBuilder();
+				builder.Append("Group ID");
+				for (int i = 0; i < Attributes.Count; i++)
 				{
-					builder = new StringBuilder();
-					builder.Append(i);
-					foreach (var attribute in attributes)
+					builder.Append(separator);
+					builder.Append(Attributes[i].Name);
+				}
+				writer.WriteLine(builder.ToString());
+
+				for (int i = 0; i < FinalSolution.Groups.Count; i++)
+				{
+					for (int j = 0; j < FinalSolution.Groups[i].Elements.Count; j++)
 					{
-						builder.Append(separator);
-						builder.Append(finalSolution.Groups[i].Elements[j].Attributes[attribute]);
+						builder = new StringBuilder();
+						builder.Append(i);
+						foreach (var attribute in Attributes)
+						{
+							builder.Append(separator);
+							builder.Append(FinalSolution.Groups[i].Elements[j].Attributes[attribute]);
+						}
+						writer.WriteLine(builder.ToString());
 					}
-					writer.WriteLine(builder.ToString());
 				}
 			}
-
-			writer.Close();
+			finally
+			{
+				if (writer != null)
+					writer.Close();
+			}
 		}
 	}
 }
