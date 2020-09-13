@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:WellDividedUI"
         mc:Ignorable="d"
         Title="WellDivided" Height="720" Width="1280">
-    <Grid>
-
+    <Grid x:Name="mainGrid">
+        <ScrollViewer Margin="10,47,640,381" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="attributesSettings"/>
+        </ScrollViewer>
+        <Button x:Name="loadDataButton" Content="Load data from txt" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="132" Height="32" Click="loadDataButton_Click"/>
+        <Label Content="Separator (tab if empty):" HorizontalAlignment="Left" Margin="147,13,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="inputSeparatorTextBox" HorizontalAlignment="Left" Margin="290,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="17" MaxLength="1"/>
+        <Label Content="How many groups to split into:" HorizontalAlignment="Left" Margin="645,47,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="groupCountTextBox" HorizontalAlignment="Left" Margin="823,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" Height="22" PreviewTextInput="groupsCountTextBox_PreviewTextInput" MaxLength="3"/>
+        <CheckBox x:Name="balanceElementsCountsCheckBox" Content="Balance the counts of elements in the groups" HorizontalAlignment="Left" Margin="645,78,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="runButton" Content="Run with the chosen settings" HorizontalAlignment="Left" Margin="645,281,0,0" VerticalAlignment="Top" Height="42" Width="193" Click="runButton_Click" IsEnabled="False"/>
+        <Label Content="Separator (tab if empty):" HorizontalAlignment="Left" Margin="999,289,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="outputSeparatorTextBox" HorizontalAlignment="Left" Margin="1142,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="17" MaxLength="1"/>
+        <Button x:Name="saveButton" Content="Save to an output file" HorizontalAlignment="Left" Margin="843,281,0,0" VerticalAlignment="Top" Height="42" Width="151" IsEnabled="False" Click="saveButton_Click"/>
+        <Label Content="The score of this division (0 - 1):" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="205,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="21" IsReadOnly="True"/>
+        <ScrollViewer Margin="10,354,10,10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="groupResults" Orientation="Horizontal"/>
+        </ScrollViewer>
     </Grid>
 </Window>
