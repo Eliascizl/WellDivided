@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="WellDividedUI.NumberAttributeSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WellDividedUI"
+             mc:Ignorable="d" Height="35" Width="600" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Grid>
+        <Label x:Name="attributeNameLabel" Content="Attribute Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,0,0,0"/>
+        <CheckBox x:Name="shownCheckBox" Content="Shown" HorizontalAlignment="Left" Margin="94,11,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="balancedCheckBox" Content="Balanced" HorizontalAlignment="Left" Margin="156,11,0,0" VerticalAlignment="Top" Checked="balancedCheckBox_Checked" Unchecked="balancedCheckBox_Unchecked"/>
+        <Slider x:Name="importanceSlider" HorizontalAlignment="Left" Margin="307,10,0,0" VerticalAlignment="Top" Width="120" IsSnapToTickEnabled="True" TickPlacement="None" Minimum="1" IsEnabled="False"/>
+        <Label x:Name="importanceLabel" Content="Importance:" HorizontalAlignment="Left" Margin="229,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
+        <TextBox x:Name="importanceValue" HorizontalAlignment="Left" Margin="432,9,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="20" Text="{Binding Value, ElementName=importanceSlider}" Height="20" IsEnabled="False" IsReadOnly="True"/>
+        <ComboBox x:Name="evaluatedByComboBox" HorizontalAlignment="Left" Margin="457,10,0,0" VerticalAlignment="Top" Width="133" Height="19" IsEnabled="False"/>
+
+    </Grid>
+</UserControl>
