@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WellDividedCore
 {
-	class Solution
+	public class Solution
 	{
 		private Divider divider;
 		public List<Group> Groups { get; private set; }
