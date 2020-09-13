@@ -142,11 +142,6 @@ namespace WellDividedUI
 			// TODO: implement
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		/// <throws
 		private (List<Attribute>, List<int>, List<EvaluateBy>) GetBalancedAttributes()
 		{
 			// TODO: this is ugly
