@@ -97,6 +97,8 @@ namespace WellDividedUI
 
 				attributesSettings.Children.Add(uIElement);
 			}
+
+			orderByComboBox.ItemsSource = divider.Attributes;
 		}
 
 		private void runButton_Click(object sender, RoutedEventArgs e)
@@ -137,9 +139,9 @@ namespace WellDividedUI
 			Thread algorithmThread = new Thread(() => 
 			{ 
 				divider.Divide();
-				DisplaySolution(divider.FinalSolution);
 				Dispatcher.Invoke(() =>
 				{
+					DisplaySolution(divider.FinalSolution, divider.FinalScore);
 					runButton.IsEnabled = true;
 					saveButton.IsEnabled = true;
 				});
@@ -167,9 +169,18 @@ namespace WellDividedUI
 			}
 		}
 
-		private void DisplaySolution(Solution finalSolution)
+		private void DisplaySolution(Solution finalSolution, float finalScore)
 		{
-			// TODO: implement
+			finalScoreTextBox.Text = finalScore.ToString();
+
+			groupResultsStackPanel.Children.Clear();
+
+			for (int i = 0; i < finalSolution.Groups.Length; i++)
+			{
+				var groupResult = new GroupResult(finalSolution.Groups[i]);
+				groupResultsStackPanel.Children.Add(groupResult);
+				groupResult.DisplayGroup(shownAttributes, (Attribute)orderByComboBox.SelectedItem);
+			}
 		}
 
 		private (List<Attribute>, List<int>, List<EvaluateBy>) GetBalancedAttributes()

@@ -119,11 +119,16 @@ namespace WellDividedCore
 			{
 				Value = value;
 			}
+			public override int CompareTo(AttributeInstance other)
+			{
+				return Value.CompareTo(((GeneralAttributeInstance)other).Value);
+			}
 
 			public override string ToString()
 			{
 				return Value;
 			}
+
 		}
 	}
 }

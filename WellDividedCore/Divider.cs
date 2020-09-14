@@ -108,14 +108,15 @@ namespace WellDividedCore
 		}
 
 		public Solution FinalSolution { get; private set; }
+		public float FinalScore { get; private set; }
 
 		public void Divide()
 		{
 			var solution = Solution.GenerateRandomDistributedSolution(this);
 
 			var score = solution.Evaluate();
-
-			for (int i = 0; i < 1_000; i++)
+			
+			for (int i = 0; i < 100_000; i++)
 			{
 				var newSolution = solution.RandomImprove();
 				var newScore = newSolution.Evaluate();
@@ -127,6 +128,7 @@ namespace WellDividedCore
 			}
 
 			FinalSolution = solution;
+			FinalScore = score;
 		}
 
 		/// <summary>

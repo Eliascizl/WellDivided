@@ -79,6 +79,11 @@ namespace WellDividedCore
 				Value = float.Parse(value);
 			}
 
+			public override int CompareTo(AttributeInstance other)
+			{
+				return Value.CompareTo(((NumberAttributeInstance)other).Value);
+			}
+
 			public override string ToString()
 			{
 				return Value.ToString();

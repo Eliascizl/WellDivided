@@ -35,9 +35,9 @@ namespace WellDividedCore
 		/// Each element shoud have instances of all their attributes. This is the base class for such instances.
 		/// When inheriting, you should add a distinct "value" field which has the data type as your attribute directs.
 		/// </summary>
-		public abstract class AttributeInstance
+		public abstract class AttributeInstance : IComparable<AttributeInstance>
 		{
-
+			public abstract int CompareTo(AttributeInstance other);
 		}
 
 		public abstract class AttributeFactory
