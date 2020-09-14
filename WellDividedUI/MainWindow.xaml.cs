@@ -103,7 +103,14 @@ namespace WellDividedUI
 		{
 			int groupCount;
 			if (groupCountTextBox.Text != "")
+			{
 				groupCount = int.Parse(groupCountTextBox.Text);
+				if (groupCount < 2)
+				{
+					MessageBox.Show("There have to be at least 2 groups.", "Error starting the algorithm", MessageBoxButton.OK);
+					return;
+				}
+			}
 			else
 			{
 				MessageBox.Show("You did not choose how many groups the elements should be divided into.", "Error starting the algorithm", MessageBoxButton.OK);
@@ -131,8 +138,11 @@ namespace WellDividedUI
 			{ 
 				divider.Divide();
 				DisplaySolution(divider.FinalSolution);
-				Dispatcher.Invoke(() => { runButton.IsEnabled = true; });
-				Dispatcher.Invoke(() => { saveButton.IsEnabled = true; });
+				Dispatcher.Invoke(() =>
+				{
+					runButton.IsEnabled = true;
+					saveButton.IsEnabled = true;
+				});
 			})
 			{
 				IsBackground = true
