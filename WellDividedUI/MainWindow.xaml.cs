@@ -121,7 +121,10 @@ namespace WellDividedUI
 			catch (Exception exception)
 			{
 				MessageBox.Show(exception.Message, "Error setting the data for the algorithm", MessageBoxButton.OK);
+				return;
 			}
+
+			SetShownAttributes();
 			
 			runButton.IsEnabled = false;
 			Thread algorithmThread = new Thread(() => 
@@ -135,6 +138,23 @@ namespace WellDividedUI
 				IsBackground = true
 			};
 			algorithmThread.Start();
+		}
+
+		private List<Attribute> shownAttributes;
+
+		private void SetShownAttributes()
+		{
+			shownAttributes = new List<Attribute>();
+			foreach (var attribute in generalAttributes)
+			{
+				if (attribute.shownCheckBox.IsChecked.HasValue && attribute.shownCheckBox.IsChecked.Value == true)
+					shownAttributes.Add(attribute.GeneralAttribute);
+			}
+			foreach (var attribute in numberAttributes)
+			{
+				if (attribute.shownCheckBox.IsChecked.HasValue && attribute.shownCheckBox.IsChecked.Value == true)
+					shownAttributes.Add(attribute.NumberAttribute);
+			}
 		}
 
 		private void DisplaySolution(Solution finalSolution)
