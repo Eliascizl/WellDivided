@@ -213,7 +213,7 @@ namespace WellDividedUI
 				var path = dialog.FileName;
 
 				char separator;
-				if (inputSeparatorTextBox.Text != "")
+				if (outputSeparatorTextBox.Text != "")
 				{
 					separator = outputSeparatorTextBox.Text[0];
 				}
