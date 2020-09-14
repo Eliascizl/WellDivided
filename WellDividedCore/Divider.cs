@@ -12,7 +12,8 @@ namespace WellDividedCore
 	/// </summary>
 	public class Divider
 	{
-		private List<Element> elements;
+		internal List<Element> Elements { get; private set; }
+
 		public List<Attribute> Attributes { get; private set; }
 
 		private List<Attribute.AttributeFactory> possibleAttributes = new List<Attribute.AttributeFactory>() { new Attribute.AttributeFactoryConcrete<GeneralAttribute>(""), new Attribute.AttributeFactoryConcrete<NumberAttribute>("num") };
@@ -27,7 +28,7 @@ namespace WellDividedCore
 		/// <exception cref="FormatException">Thrown when there is an error with parsing the text.</exception>
 		public void LoadDataFromText(string path, char separator = '\t')
 		{
-			elements = new List<Element>();
+			Elements = new List<Element>();
 			Attributes = new List<Attribute>();
 
 			StreamReader reader = null;
@@ -72,7 +73,7 @@ namespace WellDividedCore
 						element.Attributes.Add(Attributes[i], Attributes[i].GetInstance(data[i]));
 					}
 
-					elements.Add(element);
+					Elements.Add(element);
 				}
 			}
 			finally
@@ -82,8 +83,7 @@ namespace WellDividedCore
 			}
 		}
 
-		private int groupCount;
-
+		internal int GroupCount { get; private set; }
 		internal bool ElementCountsBalanced { get; private set; }
 		internal List<Attribute> BalancedAttributes { get; private set; } = new List<Attribute>();
 
@@ -92,7 +92,7 @@ namespace WellDividedCore
 		/// </summary>
 		public void UpdateSettings(int groupCount, bool elementsCountsBalanced, List<Attribute> balancedAttributes, List<int> importanceValues, List<EvaluateBy> evaluateBies)
 		{
-			this.groupCount = groupCount;
+			this.GroupCount = groupCount;
 			ElementCountsBalanced = elementsCountsBalanced;
 			BalancedAttributes = balancedAttributes;
 			for (int i = 0; i < BalancedAttributes.Count; i++)
@@ -109,7 +109,12 @@ namespace WellDividedCore
 
 		public void Divide()
 		{
-			System.Threading.Thread.Sleep(1000);
+			var solution = Solution.GenerateRandomDistributedSolution(this);
+
+			for (int i = 0; i < 1_000; i++)
+			{
+
+			}
 		}
 
 		/// <summary>
@@ -135,7 +140,7 @@ namespace WellDividedCore
 				}
 				writer.WriteLine(builder.ToString());
 
-				for (int i = 0; i < FinalSolution.Groups.Count; i++)
+				for (int i = 0; i < FinalSolution.Groups.Length; i++)
 				{
 					for (int j = 0; j < FinalSolution.Groups[i].Elements.Count; j++)
 					{

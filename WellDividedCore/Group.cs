@@ -7,5 +7,10 @@ namespace WellDividedCore
 	public class Group
 	{
 		public List<Element> Elements { get; }
+
+		public Group()
+		{
+			Elements = new List<Element>();
+		}
 	}
 }

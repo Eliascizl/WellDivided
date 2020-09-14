@@ -27,7 +27,7 @@ namespace WellDividedCore
 
 		internal abstract void SetExpectations(List<Element> elements, int groupCount);
 
-		internal abstract float Evaluate(List<Group> groups);
+		internal abstract float Evaluate(Group[] groups);
 
 		internal abstract AttributeInstance GetInstance(string value);
 

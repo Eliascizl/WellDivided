@@ -35,10 +35,10 @@ namespace WellDividedCore
 			}
 		}
 
-		internal override float Evaluate(List<Group> groups)
+		internal override float Evaluate(Group[] groups)
 		{
-			Dictionary<string, int>[] instanceCounts = new Dictionary<string, int>[groups.Count];
-			for (int i = 0; i < groups.Count; i++)
+			Dictionary<string, int>[] instanceCounts = new Dictionary<string, int>[groups.Length];
+			for (int i = 0; i < groups.Length; i++)
 			{
 				for (int j = 0; j < groups[i].Elements.Count; j++)
 				{

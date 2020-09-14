@@ -27,10 +27,10 @@ namespace WellDividedCore
 			expectedAverage = sum / elements.Count;
 		}
 
-		internal override float Evaluate(List<Group> groups)
+		internal override float Evaluate(Group[] groups)
 		{
-			float[] values = new float[groups.Count];
-			for (int i = 0; i < groups.Count; i++)
+			float[] values = new float[groups.Length];
+			for (int i = 0; i < groups.Length; i++)
 			{
 				var sum = 0f;
 				for (int j = 0; j < groups[i].Elements.Count; j++)
@@ -44,7 +44,7 @@ namespace WellDividedCore
 			float expectedValue;
 			if (EvaluateBy == EvaluateBy.Average)
 			{
-				for (int i = 0; i < groups.Count; i++)
+				for (int i = 0; i < groups.Length; i++)
 				{
 					values[i] /= groups[i].Elements.Count;
 				}
