@@ -12,5 +12,10 @@ namespace WellDividedCore
 		{
 			Elements = new List<Element>();
 		}
+
+		public Group(Group group) : this()
+		{
+			Elements = new List<Element>(group.Elements);
+		}
 	}
 }

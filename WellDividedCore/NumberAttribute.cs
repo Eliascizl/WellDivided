@@ -61,7 +61,7 @@ namespace WellDividedCore
 
 			var deviation = values.StandardDeviation(expectedValue);
 			// Expected value is either the sum or the sum divided by something. The sum is always positive, so the expected value is always > 0
-			return Math.Min(0f, 1f - (deviation / expectedValue));
+			return Math.Max(0f, 1f - (deviation / expectedValue));
 		}
 
 		// TODO: move to a generic factory

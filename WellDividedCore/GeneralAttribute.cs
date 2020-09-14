@@ -29,15 +29,21 @@ namespace WellDividedCore
 				}
 			}
 
-			foreach(var key in expectedValues.Keys)
+			var expectedValuesKeys = new List<string>(expectedValues.Keys);
+			for (int i = 0; i < expectedValuesKeys.Count; i++)
 			{
-				expectedValues[key] /= groupCount;
+				expectedValues[expectedValuesKeys[i]] /= groupCount;
 			}
 		}
 
 		internal override float Evaluate(Group[] groups)
 		{
 			Dictionary<string, int>[] instanceCounts = new Dictionary<string, int>[groups.Length];
+			for (int i = 0; i < instanceCounts.Length; i++)
+			{
+				instanceCounts[i] = new Dictionary<string, int>();
+			}
+
 			for (int i = 0; i < groups.Length; i++)
 			{
 				for (int j = 0; j < groups[i].Elements.Count; j++)
@@ -96,7 +102,7 @@ namespace WellDividedCore
 			var deviation = values.StandardDeviation(expectedValue);
 
 			// Expected values exist only for instances present, so they are always > 0
-			return Math.Min(0f, 1f - (deviation / expectedValue));
+			return Math.Max(0f, 1f - (deviation / expectedValue));
 		}
 
 		// TODO: move to a generic factory

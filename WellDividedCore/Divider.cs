@@ -92,7 +92,7 @@ namespace WellDividedCore
 		/// </summary>
 		public void UpdateSettings(int groupCount, bool elementsCountsBalanced, List<Attribute> balancedAttributes, List<int> importanceValues, List<EvaluateBy> evaluateBies)
 		{
-			this.GroupCount = groupCount;
+			GroupCount = groupCount;
 			ElementCountsBalanced = elementsCountsBalanced;
 			BalancedAttributes = balancedAttributes;
 			for (int i = 0; i < BalancedAttributes.Count; i++)
@@ -102,6 +102,8 @@ namespace WellDividedCore
 				{
 					((NumberAttribute)balancedAttributes[i]).EvaluateBy = evaluateBies[i];
 				}
+
+				BalancedAttributes[i].SetExpectations(Elements, GroupCount);
 			}
 		}
 
@@ -111,10 +113,20 @@ namespace WellDividedCore
 		{
 			var solution = Solution.GenerateRandomDistributedSolution(this);
 
+			var score = solution.Evaluate();
+
 			for (int i = 0; i < 1_000; i++)
 			{
-
+				var newSolution = solution.RandomImprove();
+				var newScore = newSolution.Evaluate();
+				if (newScore > score)
+				{
+					solution = newSolution;
+					score = newScore;
+				}
 			}
+
+			FinalSolution = solution;
 		}
 
 		/// <summary>
