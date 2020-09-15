@@ -16,7 +16,12 @@ namespace WellDividedCore
 
 		public List<Attribute> Attributes { get; private set; }
 
-		private List<Attribute.AttributeFactory> possibleAttributes = new List<Attribute.AttributeFactory>() { new Attribute.AttributeFactoryConcrete<GeneralAttribute>(""), new Attribute.AttributeFactoryConcrete<NumberAttribute>("num") };
+		private delegate Attribute AFactory(string toCheck);
+		private List<AFactory> possibleAttributes = new List<AFactory>()
+		{
+			(string c) => Attribute.GetAttribute<GeneralAttribute>("", c),
+			(string c) => Attribute.GetAttribute<NumberAttribute>("num", c)
+		};
 
 		/// <summary>
 		/// Get a CSV table and create a list of elements and a list of attributes. Fill the elements with the instances of their attributes.
@@ -48,7 +53,7 @@ namespace WellDividedCore
 					Attribute attribute = null;
 					foreach (var possibleAttribute in possibleAttributes)
 					{
-						attribute = possibleAttribute.GetAttribute(types[i]);
+						attribute = possibleAttribute(types[i]);
 						if (attribute != null)
 							break;
 					}

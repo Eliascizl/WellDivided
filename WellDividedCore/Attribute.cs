@@ -15,19 +15,39 @@ namespace WellDividedCore
 
 		public int Importance { get; internal set; }
 
-		protected Attribute()
-		{
-			
-		}
-
 		public override string ToString()
 		{
 			return Name;
 		}
 
+		/// <summary>
+		/// Preparation needed for the Evaluation.
+		/// </summary>
+		/// <param name="elements"></param>
+		/// <param name="groupCount"></param>
 		internal abstract void SetExpectations(List<Element> elements, int groupCount);
 
+		/// <summary>
+		/// Evaluates the given group for balancing.
+		/// Be sure to have run <see cref="SetExpectations(List{Element}, int)"/> before.
+		/// </summary>
+		/// <param name="groups">The groups to be evaluated.</param>
+		/// <returns>A float between 0 and 1.</returns>
 		internal abstract float Evaluate(Group[] groups);
+
+		/// <summary>
+		/// Returns the <see cref="Attribute"/> of the given type if the two given strings match.
+		/// </summary>
+		/// <typeparam name="TAttribute">Attribute type to return.</typeparam>
+		/// <param name="setting">First string - considered the initial "setting".</param>
+		/// <param name="toCheck">Second string - the one to be checked.</param>
+		/// <returns>A new empty <see cref="Attribute"> of the given type."/></returns>
+		internal static TAttribute GetAttribute<TAttribute>(string setting, string toCheck) where TAttribute : Attribute, new()
+		{
+			if (setting == toCheck)
+				return new TAttribute();
+			return null;
+		}
 
 		internal abstract AttributeInstance GetInstance(string value);
 
@@ -38,33 +58,6 @@ namespace WellDividedCore
 		public abstract class AttributeInstance : IComparable<AttributeInstance>
 		{
 			public abstract int CompareTo(AttributeInstance other);
-		}
-
-		public abstract class AttributeFactory
-		{
-			protected string typeName;
-
-			public AttributeFactory(string typeName)
-			{
-				this.typeName = typeName;
-			}
-
-			public abstract Attribute GetAttribute(string typeName);
-		}
-
-		public class AttributeFactoryConcrete<TAttribute> : AttributeFactory where TAttribute : Attribute, new()
-		{
-			public AttributeFactoryConcrete(string typeName) : base(typeName)
-			{
-
-			}
-
-			public override Attribute GetAttribute(string typeName)
-			{
-				if (this.typeName == typeName)
-					return new TAttribute();
-				return null;
-			}
 		}
 	}
 }
