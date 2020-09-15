@@ -5,6 +5,9 @@ using WellDividedCore.Utility;
 
 namespace WellDividedCore
 {
+	/// <summary>
+	/// A number attribute (any real number) that is balanced either by the sum of the instances or their average.
+	/// </summary>
 	public class NumberAttribute : Attribute
 	{
 		public NumberAttribute() : base() { }
@@ -70,9 +73,12 @@ namespace WellDividedCore
 			return new NumberAttributeInstance(value);
 		}
 
+		/// <summary>
+		/// An instance of a <see cref="NumberAttribute"/>. Basically a float.
+		/// </summary>
 		public class NumberAttributeInstance : AttributeInstance
 		{
-			public float Value { get; }
+			internal float Value { get; }
 
 			public NumberAttributeInstance(string value)
 			{
@@ -91,6 +97,9 @@ namespace WellDividedCore
 		}
 	}
 
+	/// <summary>
+	/// All the options of evaluation of this attribute.
+	/// </summary>
 	public enum EvaluateBy
 	{
 		Sum, Average

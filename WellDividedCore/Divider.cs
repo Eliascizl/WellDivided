@@ -115,7 +115,13 @@ namespace WellDividedCore
 		public Solution FinalSolution { get; private set; }
 		public float FinalScore { get; private set; }
 
-		public void Divide(float secondsToWait)
+		/// <summary>
+		/// Runs the main algorithm.
+		/// First it generates a random solution.
+		/// Then it works on a greedy hill-climbing basis. It does a random change to the solution and sees if the evaluation has improved. If yes, this new solution is taken and being approved. So the evaluation score can only rise.
+		/// </summary>
+		/// <param name="secondsToRun">How long the algorithm should run in seconds.</param>
+		public void Divide(float secondsToRun)
 		{
 			var startTime = DateTime.Now;
 
@@ -123,9 +129,9 @@ namespace WellDividedCore
 
 			var score = solution.Evaluate();
 			
-			while ((DateTime.Now - startTime).TotalSeconds < secondsToWait)
+			while ((DateTime.Now - startTime).TotalSeconds < secondsToRun)
 			{
-				var newSolution = solution.RandomImprove();
+				var newSolution = solution.RandomChange();
 				var newScore = newSolution.Evaluate();
 				if (newScore > score)
 				{

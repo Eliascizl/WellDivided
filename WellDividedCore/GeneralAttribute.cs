@@ -7,6 +7,9 @@ using WellDividedCore.Utility;
 
 namespace WellDividedCore
 {
+	/// <summary>
+	/// A general attribute that is balanced by the number of appearances of each of the instances.
+	/// </summary>
 	public class GeneralAttribute : Attribute
 	{
 		public GeneralAttribute() : base() { }
@@ -105,20 +108,24 @@ namespace WellDividedCore
 			return Math.Max(0f, 1f - (deviation / expectedValue));
 		}
 
-		// TODO: move to a generic factory
+		// TODO: move to a generic factory (maybe)
 		internal override AttributeInstance GetInstance(string value)
 		{
 			return new GeneralAttributeInstance(value);
 		}
 
+		/// <summary>
+		/// Instance of a <see cref="GeneralAttribute"/>. Basically a string.
+		/// </summary>
 		public class GeneralAttributeInstance : AttributeInstance
 		{
-			public string Value { get; internal set; }
+			internal string Value { get; }
 
 			public GeneralAttributeInstance(string value)
 			{
 				Value = value;
 			}
+
 			public override int CompareTo(AttributeInstance other)
 			{
 				return Value.CompareTo(((GeneralAttributeInstance)other).Value);
