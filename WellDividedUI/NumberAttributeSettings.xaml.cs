@@ -22,11 +22,12 @@ namespace WellDividedUI
 		internal NumberAttribute NumberAttribute { get; private set; }
 
 		private static readonly string[] evaluetedBySource = new string[] { "Balanced by sum", "Balanced by average"};
-		public NumberAttributeSettings(NumberAttribute numberAttribute)
+		
+		internal NumberAttributeSettings(NumberAttribute numberAttribute)
 		{
 			InitializeComponent();
 
-			this.NumberAttribute = numberAttribute;
+			NumberAttribute = numberAttribute;
 
 			attributeNameLabel.Content = numberAttribute.Name;
 
@@ -43,7 +44,7 @@ namespace WellDividedUI
 			{
 				return EvaluateBy.Average;
 			}
-			throw new InvalidOperationException("Not chosen what to balance by");
+			throw new InvalidOperationException("Not chosen what to balance by.");
 		}
 
 		private void balancedCheckBox_Checked(object sender, RoutedEventArgs e)

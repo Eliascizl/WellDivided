@@ -23,7 +23,7 @@ namespace WellDividedUI
 		private Group group;
 		private int groupID;
 
-		public GroupResult(Group group, int groupID)
+		internal GroupResult(Group group, int groupID)
 		{
 			InitializeComponent();
 

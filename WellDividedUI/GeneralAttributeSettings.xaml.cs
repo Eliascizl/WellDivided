@@ -21,11 +21,11 @@ namespace WellDividedUI
 	{
 		internal GeneralAttribute GeneralAttribute { get; private set; }
 
-		public GeneralAttributeSettings(GeneralAttribute generalAttribute)
+		internal GeneralAttributeSettings(GeneralAttribute generalAttribute)
 		{
 			InitializeComponent();
 
-			this.GeneralAttribute = generalAttribute;
+			GeneralAttribute = generalAttribute;
 			attributeNameLabel.Content = generalAttribute.Name;
 
 		}
