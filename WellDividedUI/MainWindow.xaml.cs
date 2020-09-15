@@ -246,7 +246,7 @@ namespace WellDividedUI
 
 		private void saveButton_Click(object sender, RoutedEventArgs e)
 		{
-			var dialog = new OpenFileDialog();
+			var dialog = new SaveFileDialog();
 			if (dialog.ShowDialog() == true)
 			{
 				var path = dialog.FileName;
