@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WellDividedUI", "WellDivide
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WellDividedCore", "WellDividedCore\WellDividedCore.csproj", "{6D3CEF8D-6A69-4B61-AC93-F7582DF13D0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{A9999A98-049E-4776-AB20-65CA42D25EE4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WellDividedTests", "WellDividedTests\WellDividedTests.csproj", "{D7BAA5C8-EC81-4E34-B935-F7ECFF44439B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WellDividedTests", "WellDividedTests\WellDividedTests.csproj", "{D7BAA5C8-EC81-4E34-B935-F7ECFF44439B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{6D3CEF8D-6A69-4B61-AC93-F7582DF13D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3CEF8D-6A69-4B61-AC93-F7582DF13D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3CEF8D-6A69-4B61-AC93-F7582DF13D0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9999A98-049E-4776-AB20-65CA42D25EE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9999A98-049E-4776-AB20-65CA42D25EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9999A98-049E-4776-AB20-65CA42D25EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9999A98-049E-4776-AB20-65CA42D25EE4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D7BAA5C8-EC81-4E34-B935-F7ECFF44439B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D7BAA5C8-EC81-4E34-B935-F7ECFF44439B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7BAA5C8-EC81-4E34-B935-F7ECFF44439B}.Release|Any CPU.ActiveCfg = Release|Any CPU
