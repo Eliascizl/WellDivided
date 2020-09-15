@@ -110,13 +110,15 @@ namespace WellDividedCore
 		public Solution FinalSolution { get; private set; }
 		public float FinalScore { get; private set; }
 
-		public void Divide()
+		public void Divide(float secondsToWait)
 		{
+			var startTime = DateTime.Now;
+
 			var solution = Solution.GenerateRandomDistributedSolution(this);
 
 			var score = solution.Evaluate();
 			
-			for (int i = 0; i < 100_000; i++)
+			while ((DateTime.Now - startTime).TotalSeconds < secondsToWait)
 			{
 				var newSolution = solution.RandomImprove();
 				var newScore = newSolution.Evaluate();

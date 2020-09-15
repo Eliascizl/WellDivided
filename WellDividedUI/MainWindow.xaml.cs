@@ -133,12 +133,32 @@ namespace WellDividedUI
 				return;
 			}
 
+			float secondsToRun;
+			if(secondsToRunTextBox.Text != "")
+			{
+				if(!float.TryParse(secondsToRunTextBox.Text, out secondsToRun))
+				{
+					MessageBox.Show("The number of seconds is in an incorrect format. Use X with an optional .X where X is any number of digits.", "Error starting the algorithm", MessageBoxButton.OK);
+					return;
+				}
+				if (secondsToRun < 0f)
+				{
+					MessageBox.Show("The seconds have to be at least 0.", "Error starting the algorithm", MessageBoxButton.OK);
+					return;
+				}
+			}
+			else
+			{
+				MessageBox.Show("You did not choose how long the algorithm should run.", "Error starting the algorithm", MessageBoxButton.OK);
+				return;
+			}
+
 			SetShownAttributes();
 			
 			runButton.IsEnabled = false;
 			Thread algorithmThread = new Thread(() => 
 			{ 
-				divider.Divide();
+				divider.Divide(secondsToRun);
 				Dispatcher.Invoke(() =>
 				{
 					DisplaySolution(divider.FinalSolution, divider.FinalScore);
@@ -210,10 +230,16 @@ namespace WellDividedUI
 			return result;
 		}
 
-		private static readonly Regex regex = new Regex("[^0-9]+"); //regex that matches disallowed text
+		private static readonly Regex intRegex = new Regex("[0-9]+");
 		private void groupsCountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
 		{
-			e.Handled = regex.IsMatch(e.Text);
+			e.Handled = !intRegex.IsMatch(e.Text);
+		}
+
+		private static readonly Regex floatRegex = new Regex(@"^[0-9]*(?:\.[0-9]*)?$");
+		private void secondsToRunTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			e.Handled = !floatRegex.IsMatch(e.Text);
 		}
 
 		private void saveButton_Click(object sender, RoutedEventArgs e)
@@ -242,5 +268,6 @@ namespace WellDividedUI
 				}
 			}
 		}
+
 	}
 }

@@ -14,8 +14,10 @@
         <Label Content="Separator (tab if empty):" HorizontalAlignment="Left" Margin="147,13,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="inputSeparatorTextBox" HorizontalAlignment="Left" Margin="290,17,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="17" MaxLength="1"/>
         <Label Content="How many groups to split into:" HorizontalAlignment="Left" Margin="645,47,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="groupCountTextBox" HorizontalAlignment="Left" Margin="823,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" Height="22" PreviewTextInput="groupsCountTextBox_PreviewTextInput" MaxLength="3"/>
-        <CheckBox x:Name="balanceElementsCountsCheckBox" Content="Balance the counts of elements in the groups" HorizontalAlignment="Left" Margin="645,78,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="groupCountTextBox" HorizontalAlignment="Left" Margin="823,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="27" Height="22" PreviewTextInput="groupsCountTextBox_PreviewTextInput" MaxLength="3" Text="2"/>
+        <CheckBox x:Name="balanceElementsCountsCheckBox" Content="Balance the counts of elements in the groups" HorizontalAlignment="Left" Margin="645,78,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label Content="How many seconds to run:" HorizontalAlignment="Left" Margin="645,250,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="secondsToRunTextBox" HorizontalAlignment="Left" Margin="801,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37" Text="3.0" MaxLength="4" PreviewTextInput="secondsToRunTextBox_PreviewTextInput"/>
         <Button x:Name="runButton" Content="Run with the chosen settings" HorizontalAlignment="Left" Margin="645,281,0,0" VerticalAlignment="Top" Height="42" Width="193" Click="runButton_Click" IsEnabled="False"/>
         <Label Content="Separator (tab if empty):" HorizontalAlignment="Left" Margin="999,289,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="outputSeparatorTextBox" HorizontalAlignment="Left" Margin="1142,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="17" MaxLength="1"/>
