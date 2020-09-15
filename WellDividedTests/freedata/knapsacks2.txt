@@ -1,0 +1,7 @@
+Weight	Price
+num	num
+1	1
+1	1
+1	1
+1	1
+4	4
