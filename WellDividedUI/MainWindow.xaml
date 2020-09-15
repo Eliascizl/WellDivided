@@ -28,6 +28,6 @@
             <StackPanel x:Name="groupResultsStackPanel" Orientation="Horizontal"/>
         </ScrollViewer>
         <Label Content="Order elements by:" HorizontalAlignment="Left" Margin="306,323,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="orderByComboBox" HorizontalAlignment="Left" Margin="422,325,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="orderByComboBox" HorizontalAlignment="Left" Margin="422,325,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="orderByComboBox_SelectionChanged" IsEnabled="False"/>
     </Grid>
 </Window>

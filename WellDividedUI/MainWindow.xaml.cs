@@ -40,6 +40,7 @@ namespace WellDividedUI
 			{
 				attributesSettings.Children.Clear();
 				runButton.IsEnabled = false;
+				orderByComboBox.IsEnabled = false;
 				var path = dialog.FileName;
 
 				char separator;
@@ -164,6 +165,7 @@ namespace WellDividedUI
 					DisplaySolution(divider.FinalSolution, divider.FinalScore);
 					runButton.IsEnabled = true;
 					saveButton.IsEnabled = true;
+					orderByComboBox.IsEnabled = true;
 				});
 			})
 			{
@@ -197,7 +199,7 @@ namespace WellDividedUI
 
 			for (int i = 0; i < finalSolution.Groups.Length; i++)
 			{
-				var groupResult = new GroupResult(finalSolution.Groups[i]);
+				var groupResult = new GroupResult(finalSolution.Groups[i], i);
 				groupResultsStackPanel.Children.Add(groupResult);
 				groupResult.DisplayGroup(shownAttributes, (Attribute)orderByComboBox.SelectedItem);
 			}
@@ -269,5 +271,9 @@ namespace WellDividedUI
 			}
 		}
 
+		private void orderByComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DisplaySolution(divider.FinalSolution, divider.FinalScore);
+		}
 	}
 }

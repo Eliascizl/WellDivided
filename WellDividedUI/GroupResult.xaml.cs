@@ -21,16 +21,20 @@ namespace WellDividedUI
 	public partial class GroupResult : UserControl
 	{
 		private Group group;
+		private int groupID;
 
-		public GroupResult(Group group)
+		public GroupResult(Group group, int groupID)
 		{
 			InitializeComponent();
 
 			this.group = group;
+			this.groupID = groupID;
 		}
 
 		internal void DisplayGroup(List<Attribute> shownAttributes, Attribute sortedAttribute)
 		{
+			overviewLabel.Content = $"Group ID: {groupID}\nNumber of elements: {group.Elements.Count}";
+
 			// TODO: wouldn't have to modify the group
 			if(sortedAttribute != null)
 				group.Elements.Sort((x, y) => x.Attributes[sortedAttribute].CompareTo(y.Attributes[sortedAttribute]));
